@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const face = Math.random()<0.7; // true가 70% 확률이 된다.
+        const watch = ()=>{
+            return new Promise((resolve,reject)=>{
+                setTimeout(()=>resolve('야생의 피카츄다!!!! ಠ_ಠ'),1000)
+            })
+        }
+        const talk = (mon)=>{
+            return new Promise((resolve,reject)=>{
+                // setTimeout(()=>resolve(mon+'=> 가랏 마스터 볼( •_•)>~~-■'),1000)
+                // setTimeout(()=>reject(new Error(mon+'=> 도망쳤다 ㅜㅜ (っ °Д °;)っ')),1000)
+                setTimeout(()=>{
+                    if(face){
+                        resolve(mon+'=> 가랏 마스터 볼( •_•)>~~-■');
+                    }else{
+                        reject(new Error(mon+'=> 도망쳤다 ㅜㅜ (っ °Д °;)っ'));
+                    }
+            },1000)
+        })
+        }
+        const take = (get)=>{
+            return new Promise((resolve,reject)=>{
+                setTimeout(()=>resolve(get+'=> 피카츄 넌 내꺼야@@  😎'),1000)
+            })
+        }
+
+        watch()
+        .then(talk)
+        .catch(me=>me+'=> 혼자 있고 싶어요...')
+        .then(take)
+        .then(console.log)
+        .catch(console.log)
+    </script>
+</body>
+</html>
