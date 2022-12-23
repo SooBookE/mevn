@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromiseAll의 이해3</title>
+</head>
+<body>
+    <script>
+        function test(text, time){
+            return new Promise((resolve, reject)=>{
+                setTimeout(()=>{
+                    typeof text === 'string'
+                    ? resolve("스트링입니다.")
+                    : reject("파악이 안 됩니다.")
+                },time)
+                console.log(text);
+            })
+        }
+        /* 일반비동기방법 */
+        const testgo = async()=>{
+            console.time('일반 비동기');
+            try{
+                await test('코딩',3*1000);
+                await test(222,2*1000); // 중간만 에러.
+                await test('자바스크립트',1*1000);
+            }
+            catch(e){
+                console.log(e); // 에러 내용 출력.
+            }
+            console.timeEnd('일반 비동기');
+        }
+        testgo();
+        // 결과: 총 시간은 5초.( 중간에 오류나서 5초만 동작시간으로 인지. )
+        // 동기적으로 순차적으로 실행하면서 오류난 부분에서 종료시킨다.
+    </script>
+</body>
+</html>

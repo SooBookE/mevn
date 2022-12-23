@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>환율조회Promise로</title>
+    <script src="./p083/환율조회용.js"></script>
+    <script>
+        /* 버튼을 누를 때마다 API를 받아오면, 여러 사람이 동작할 때 과부하 걸리면서 사이트에서 차단당할 수도 있으니
+        프로미스로 데이터 관리를 해보라..? */
+
+        document.addEventListener("DOMContentLoaded",()=>{
+            const einput = document.createElement("input");
+            const espan = document.createElement("span");
+            const e시빈 = document.createElement("button");
+            const e주민 = document.createElement("p");
+
+            document.body.append(einput,espan,e시빈,e주민);
+
+            e시빈.textContent='계산';
+            espan.textContent='달러';
+
+            let dollar = 1;
+            let won;
+
+            value().then(mydata=>{
+                console.log('환율정보읽음');
+                alert(`환율정보가 현재가 ${mydata}원으로 갱신됐습니다.`);
+                e주민.textContent = `갱신된 환율 정보는 1달러에 ${mydata}원입니다.`;
+                won = mydata;
+            })
+
+            e시빈.addEventListener("click",()=>{
+                dollar = + einput.value;
+                if(isNaN(dollar)){
+                    e주민.textContent="숫자를 입력하세요."
+                    return // 조기리턴
+                }
+                e주민.textContent = dollar.toLocaleString("ko-KR")+'달러에 '+(dollar*won).toLocaleString('ko-KR')+'원';
+            })
+        })
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

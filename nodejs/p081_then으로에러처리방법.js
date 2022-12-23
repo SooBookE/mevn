@@ -5,6 +5,7 @@ const async1 = param=>{
 }
 const async2 = param=>{
     return new Promise((resolve,reject)=>{
+        // throw "에러";
         resolve(param*2)
     })
 }

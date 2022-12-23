@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>환율조회</title>
+    <script>
+        document.addEventListener("DOMContentLoaded",()=>{
+            const einput = document.createElement("input");
+            const espan = document.createElement("span");
+            const e시빈 = document.createElement("button");
+            const e주민 = document.createElement("p");
+
+            document.body.append(einput,espan,e시빈,e주민);
+
+            e시빈.textContent='계산';
+            espan.textContent='달러';
+
+            function result(){
+                const dollar = + einput.value;
+                const url = 'https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWUSD';
+                // 환율 API 받아오기.
+                if(isNaN(dollar)){
+                    e주민.textContent="숫자를 입력하세요."
+                    return // 조기리턴
+                }else{
+                    fetch(url)
+                    .then(response=>response.json()) // json으로 변환 후 리턴.
+                    .then(data=>{
+                        console.log(data[0].basePrice);
+                        e주민.innerHTML = '현재 환율은: '+dollar.toLocaleString('ko-KR',2)+'원/달러<br>변환 된 결과는: '+(dollar*data[0].basePrice).toLocaleString('ko-KR',2)+'원';
+                    })
+                }
+            }
+
+            e시빈.addEventListener("click",result);
+            einput.addEventListener("keyup",(e)=>{
+                if(e.currentTarget.key=='Enter')result();
+            })
+        })
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

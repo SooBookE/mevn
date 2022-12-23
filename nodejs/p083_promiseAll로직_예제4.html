@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PromiseAll의 이해4</title>
+  </head>
+  <body>
+    <script>
+      /* PromiseAll은 제일 늦게 끝난 작업을 기준으로 작성한 순서대로 한 번에 처리한다. */
+      function test(text, time) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            typeof text === "string"
+              ? resolve("스트링입니다.")
+              : reject("파악이 안 됩니다.");
+          }, time);
+          console.log(text);
+        });
+      }
+      /* PromiseAll로 하는 방법 */
+      const testAll = async () => {
+        console.time("PromiseAll시간측정");
+        try {
+          await Promise.all([
+            test("코딩", 3 * 1000),
+            test(222, 2 * 1000), // 에러 삽입.
+            test("자바스크립트", 1 * 1000),
+          ]);
+        } catch (e) {
+          // 배열로 넣어줘야 한다.
+          console.log(e);
+        }
+        console.timeEnd("PromiseAll시간측정");
+      };
+      testAll();
+
+      // 결과: 2초. 에러가 일어나면 바로 종료시킨다. PromiseAll의 장점!!! ★
+      // 비동기적으로 동시에 시작하고 오류난 부분 나오면 바로 종료. 그러나 출력은 동기적으로.
+    </script>
+  </body>
+</html>
