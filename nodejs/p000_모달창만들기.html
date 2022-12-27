@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>모달창 만들기(미완성)</title>
+    <style>
+      .modal {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+      .modal.show {
+        display: block;
+      }
+      .modal-body {
+        position: absolute;
+        top: calc(50% - 125px);
+        left: calc(50% - 200px);
+        min-width: 250px;
+        height: 400px;
+        padding: 20px;
+        text-align: start;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+      }
+    </style>
+    <script>
+      /*
+        classList.add(); 추가.
+        classList.remove(); 제거.
+        classList.contains(); list에 있는지 확인.
+        classList.toggle(); 붙였다가 뗐다가.
+      */
+      document.addEventListener("DOMContentLoaded", () => {
+        const button = document.getElementById("ok");
+        const modal = document.querySelector(".modal");
+        const modalBody = document.querySelector(".modal-body");
+
+        button.addEventListener("click", () => {
+          modal.classList.add("show"); // 2개 이상 클래스 적용할 때, add로 show라는 이름의 클래스를 넣겠다.
+        });
+
+        // modal.addEventListener("click", () => {
+        //   modal.classList.remove("show");
+        // });
+        /* ...? */
+
+        document.addEventListener("click", () => {
+          if (modal.classList.contains("show")) {
+            modal.classList.remove("show");
+          }
+        });
+        /* ...? */
+      });
+    </script>
+  </head>
+  <body>
+    <div class="modal">
+      <div class="modal-body">
+        <span>게시글작성</span>
+        <hr />
+        <div class="modal-title">
+          <span>작성자</span>
+        </div>
+        <span>제목</span>
+        <input type="text" />
+      </div>
+    </div>
+    <!-- 모달은 body에서 가장 상위에 있는 것이 성능상으로 좋다. -->
+    <h2>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum fugit
+      laudantium similique distinctio eveniet nemo ea magni optio fuga,
+      architecto ad qui, recusandae obcaecati deleniti necessitatibus illo
+      pariatur libero aut iusto iure sapiente nisi! At atque pariatur, quia sed,
+      eius recusandae expedita laborum omnis distinctio sapiente accusantium
+      reiciendis voluptates quibusdam, consectetur ullam. Optio ut est
+      consequuntur repudiandae a voluptatibus officiis laborum atque, sed nulla
+      eaque accusantium possimus. Aliquam pariatur dicta dolores iure doloribus.
+      Similique, culpa nulla aliquam exercitationem voluptatibus eius nostrum
+      necessitatibus, natus nesciunt eum dolores voluptatum dolorum. Sapiente,
+      cupiditate! Unde repudiandae natus temporibus, eius illum minus. Nemo
+      repellat vero voluptate dolor voluptatum harum quia ex, esse autem placeat
+      expedita enim eveniet ab odit omnis obcaecati magnam ut dicta assumenda.
+      Eaque, sunt accusamus ducimus reprehenderit eius nihil voluptas aut enim
+      perspiciatis maiores. Ab, iusto ad! Ullam, dolor officia enim recusandae
+      consequuntur nesciunt? Aperiam eum et animi provident nobis doloribus
+      consequatur qui, similique ullam eligendi ducimus obcaecati, praesentium
+      cum perferendis molestiae deleniti consectetur non enim illo! Sapiente, ab
+      laborum? Quod iure unde consectetur laborum fugiat molestiae, qui est
+      sequi pariatur quisquam incidunt saepe consequatur delectus distinctio
+      nesciunt et at deserunt dolorum vel enim ipsam? Aliquam, cum maxime autem
+      ratione eligendi saepe!
+    </h2>
+    <button id="ok">확인</button>
+  </body>
+</html>

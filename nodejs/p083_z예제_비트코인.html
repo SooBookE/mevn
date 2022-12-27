@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>비트코인api 갖고 놀기</title>
+    <script src="./p083/비트코인.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const defaultInfo = document.createElement("h1");
+        const curPrice = document.createElement("div");
+        const option = document.createElement("button");
+        const prt = document.createElement("p");
+
+        document.body.append(defaultInfo, curPrice, option, prt);
+
+        let calResult = "변동사항 없음.";
+        const post = localStorage.getItem("cur") ?? 0;
+        value().then((mydata) => {
+          if (post) {
+            const po = JSON.parse(post);
+            const calc = (((po - mydata) / po) * 100).toFixed(4);
+            if (calc > 0) {
+              calResult = calc + "% 하강했습니다.";
+            } else if (calc == 0) {
+              calResult = "변동사항 없음.";
+            } else {
+              calResult = Math.abs(calc) + "% 상승했습니다.";
+            }
+          }
+          curPrice.innerHTML = `현재 가격: ${mydata.toLocaleString('ko-KR')}원(${calResult})`;
+          localStorage.setItem("cur", mydata);
+        });
+        option.textContent = "최고가/최저가 확인";
+
+        let text = "거래 일자: ";
+        let insert = "최고가: ";
+        const main = async () => {
+          await curdate().then((data) => {
+            text += data;
+          });
+          await curtime().then((data) => {
+            text += " 거래 시간: " + data;
+          });
+          await curhigh().then((data) => {
+            insert += data.toLocaleString("ko-KR")+"원";
+          });
+          await curlow().then((data) => {
+            insert += ' 최저가: '+data.toLocaleString("ko-KR")+"원";
+          });
+          defaultInfo.innerHTML = text;
+          option.addEventListener("click",()=>{
+              prt.innerHTML = insert;
+          })
+        };
+        main();
+        // curdate().then(data=>{
+        //     curtime().then(da=>{
+        //         defaultInfo.innerHTML = '거래 일자: '+data+' 거래 시간: '+da;
+        //     });
+        // });
+        // curhigh().then(data=>{
+        //     curlow().then(da=>{
+        //         option.addEventListener("click",()=>{
+        //             prt.innerHTML = `최고가: ${data} 최저가: ${da}`;
+        //         })
+        //     });
+        // });
+      });
+    </script>
+  </head>
+  <body>
+    <!-- html로 작성하라(fetch 사용)
+    0. 기본정보 "trade_date":"20221227" "trade_time":"002818"
+    1. 현재 비트코인 가격을 불러온다.(trade_price)
+    2. localStorage 사용하여 f5또는 새로 접속할 때마다 이전의 가격과 비교하여 %정도 '상승/하강'했는지 표시.
+    3. 옵션으로 버튼을 누르면 최고가와 최저가도 표시("high_price","low_price") -->
+  </body>
+</html>
