@@ -3,7 +3,10 @@
     <router-link to="/">홈피</router-link> |
     <router-link to="/about">관련사항</router-link> |
     <router-link to="/ex1">예제1</router-link> |
-    <router-link to="/ex2">예제2</router-link>
+    <router-link to="/ex2">예제2</router-link> |
+    <router-link to="/ex3">예제3</router-link> |
+    <router-link to="/ex4">예제4</router-link> |
+    <router-link to="/ex5">예제5</router-link>
   </nav>
   <router-view />
 </template>
