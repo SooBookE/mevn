@@ -1,12 +1,25 @@
 <template>
-  <div></div>
+  <div>
+    {{ kys }}
+  </div>
 </template>
+
+<script setup></script>
 
 <script>
 export default {
-  name: 'app',
+  name: 'chat',
+  setup() {},
+  created() {
+    this.$socket.on('chat', (data) => {
+      console.log(data)
+      this.chatData.push(data)
+    })
+  },
   data() {
-    return {}
+    return {
+      chatData: []
+    }
   },
   methods: {}
 }

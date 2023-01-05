@@ -1,11 +1,10 @@
 {
   "name": "mevn",
   "version": "1.0.0",
-  "description": "시작한다....",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "test2": "console.log('단축경로지정')"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
@@ -14,9 +13,7 @@
     "fxjs": "^0.21.3",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
-    "node-fetch": "^3.3.0",
     "path": "^0.12.7",
-    "pm2": "^5.2.2",
     "socket.io": "^4.5.4"
   }
 }
