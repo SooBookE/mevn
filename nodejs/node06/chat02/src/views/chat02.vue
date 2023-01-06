@@ -12,8 +12,8 @@ const name = '이것은 setup으로 작성한 것입니다.'
 JS 스크립트처럼 작성할 수 있다. -->
 
 <template>
-  <div class="modal">
-    <div class="modal-body">
+  <div class="modal" v-if="modalon">
+    <div class="modal-body" @click="modalon = false">
       <div>👏변경됐습니다.</div>
     </div>
   </div>
@@ -26,7 +26,11 @@ JS 스크립트처럼 작성할 수 있다. -->
           @input="myname = $event.target.value"
           placeholder="대화명을 입력해주세요."
         />
-        <input type="button" value="확인" @click="makeName()" />
+        <input
+          type="button"
+          value="확인"
+          @click=";[makeName(), (modalon = true)]"
+        />
       </span>
       <span v-show="myname !== '익명'">대화명: {{ myname }}</span>
     </div>
@@ -34,7 +38,7 @@ JS 스크립트처럼 작성할 수 있다. -->
       <div class="chat-line" v-for="(chat, i) in chatData" :key="i">
         <div v-if="chat.toid == ''">{{ chat.id + ': ' + chat.message }}</div>
         <div v-else-if="chat.toid != myname">
-          {{ toname + '에게 보낸 메시지: ' + chat.message }}
+          {{ chat.toid + '에게 보낸 메시지: ' + chat.message }}
         </div>
         <div v-else>{{ chat.id + '에게 받은 메시지: ' + chat.message }}</div>
       </div>
@@ -44,7 +48,11 @@ JS 스크립트처럼 작성할 수 있다. -->
     내부 setup(){} 에 작성 변수-->
     </div>
     <div id="chatid2">
-      귓속말: <input type="checkbox" @click="ck = $event.target.checked" />
+      귓속말:
+      <input
+        type="checkbox"
+        @click=";(ck = $event.target.checked), toNameState()"
+      />
       <input
         :disabled="!ck"
         @input="toname = $event.target.value"
@@ -90,6 +98,11 @@ export default {
   methods: {
     makeName() {
       console.log('나중에 활용할 함수')
+      this.$socket.emit('chat', {
+        id: this.myname,
+        message: `${this.myname}으로(로) 이름을 바꾸셨습니다.`
+      })
+      this.message = ''
     },
     sendMessage() {
       this.$socket.emit('chat', {
@@ -99,6 +112,11 @@ export default {
       })
       console.log(this.message)
       this.message = ''
+    },
+    toNameState() {
+      if (!this.ck) {
+        this.toname = ''
+      }
     }
   }
 }
@@ -162,5 +180,26 @@ button {
   border-radius: 5px;
   outline: none;
   color: #fff;
+}
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999999;
+}
+.modal-body {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* 여기까지 왼쪽 모서리를 중앙에 맞춤 */
+  transform: translate(-50%, -50%);
+  /* 여기까지 적어야 중앙을 맞춤 */
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 4px 5px 0 rgba(34, 36, 38, 0.8);
 }
 </style>
