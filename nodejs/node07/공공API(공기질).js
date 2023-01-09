@@ -1,6 +1,13 @@
+require('dotenv').config()
+
 const request = require('request')
 
-const url = process.env.Aurl
+let key = process.env.pkey
+
+const url =
+  'http://apis.data.go.kr/6260000/AirQualityInfoService/getAirQualityInfoClassifiedByStation?serviceKey=' +
+  key +
+  '&pageNo=1&numOfRows=30&resultType=json'
 
 request(url, (e, res, body) => {
   const rst = JSON.parse(body)
