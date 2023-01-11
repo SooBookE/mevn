@@ -77,9 +77,10 @@ bot.on('message', (msg) => {
     bot.sendMessage(chatId, '청년, 마약, 열정, 바른, 인생')
   } else if (text == '안녕') {
     bot.sendMessage(chatId, '하세요.')
-  } else {
-    bot.sendMessage(chatId, '무요?')
   }
+  // else {
+  //   bot.sendMessage(chatId, '무요?')
+  // }
   // send a message to the chat acknowledging receipt of their message
   //   bot.sendMessage(chatId, '무요?')
 })
@@ -91,14 +92,36 @@ bot.on('message', (msg) => {
 // 각기 다른 반응을 5가지로 if 구문으로 응답 만들기.
 // 일정시간이 되면 타이머나 if로 웹크롤링이나 API로 환율정보/뉴스/버스정보/미세먼지 등의 정보를 가져오도록 하라.
 
-setInterval(() => {
-  const date = new Date()
-  const curTime = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
-  console.log(curTime)
-  if (curTime == '17:45:0') {
-    bot.sendMessage(
-      -1001686288502,
-      '45분입니다. 이제 다들 짐 주섬주섬 챙겨주세요~'
+// setInterval(() => {
+//   const date = new Date()
+//   const curTime = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+//   console.log(curTime)
+//   if (curTime == '17:45:0') {
+//     bot.sendMessage(
+//       -1001686288502,
+//       '45분입니다. 이제 다들 짐 주섬주섬 챙겨주세요~'
+//     )
+//   }
+// }, 1 * 1000)
+// setInterval(() => {
+//   bot.sendPhoto(
+//     -1001686288502,
+//     'AgACAgUAAx0CZIK4dgACAlRjvghvmP3LNZjFcCawYXFqZSGSbQACL7IxG0Sh8FW7-kk2YTH2mgEAAwIAA20AAy0E'
+//   )
+// }, 1000)
+// setInterval(() => {
+//   bot.sendSticker(
+//     -679408568,
+//     'CAACAgIAAxkBAAN6Y74Ln7pqLwNE5EHF-JEwWndb-AgAAloCAAJWnb0KW8XBQlrh2botBA'
+//   )
+// }, 1000)
+// 채팅방에 파일이 들어오면 해당 사진에 id가 부여된다. 그 id를 보내주면 같은 사진을 출력한다.
+bot.on('message', (msg) => {
+  const text = msg.text
+  if (text == '인성') {
+    bot.sendPhoto(
+      -679408568,
+      'https://mblogthumb-phinf.pstatic.net/20150506_82/chosunnavy10_1430887226792oxB4U_JPEG/1.jpg?type=w2'
     )
   }
-}, 1 * 1000)
+})
