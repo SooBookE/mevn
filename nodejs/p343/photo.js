@@ -6,7 +6,10 @@ const PhotoSchema = new Schema({
   id: Number,
   title: String,
   url: String,
-  thumbnailUrl: String
+  thumbnailUrl: String,
+  /* 몽구스는 스키마 때문에 아래의 필드를 확장해줘야 해당 필드로 업데이트가 가능하다. */
+  code: Number,
+  something: Array
 })
 /* 틀을 만들어주자! */
 

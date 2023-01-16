@@ -5,17 +5,18 @@ const Photo = require('./p346_CRUD_ori.js')
 const main = async () => {
   const t = await Photo.updateMany(
     {
-      title: {
-        $in: ['이시빈', '큰돌', '이주민']
-      }
+      /* 비워 놓으면, 다 해라라는 뜻. */
     },
     {
-      $push: {
+      $inc: {
+        /* 다 해당 자료량 만큼 증가해준다. */
         // 몽구스로 할 때는 스키마에 필드가 미리 준비되어 있어야 한다.
-        something: {
-          $each: [1, 2, 3]
-        }
+        code: 1
       }
+      // $set: { /* 다 입력해준다. */
+      //   // 몽구스로 할 때는 스키마에 필드가 미리 준비되어 있어야 한다.
+      //   code: 1
+      // }
     }
     // {
     //   upsert: true,
